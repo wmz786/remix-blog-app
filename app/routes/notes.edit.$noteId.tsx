@@ -54,7 +54,9 @@ export default function NewNotePage() {
   const actionData = useActionData<typeof action>();
   const titleRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
-  const data = useLoaderData<typeof loader>();
+  const {
+    note: { title, body, id },
+  } = useLoaderData<typeof loader>();
 
   useEffect(() => {
     if (actionData?.errors?.title) {
@@ -85,7 +87,7 @@ export default function NewNotePage() {
             aria-errormessage={
               actionData?.errors?.title ? "title-error" : undefined
             }
-            defaultValue={data.note.title}
+            defaultValue={title}
           />
         </label>
         {actionData?.errors?.title ? (
@@ -107,7 +109,7 @@ export default function NewNotePage() {
             aria-errormessage={
               actionData?.errors?.body ? "body-error" : undefined
             }
-            defaultValue={data.note.body}
+            defaultValue={body}
           />
         </label>
         {actionData?.errors?.body ? (
@@ -116,7 +118,7 @@ export default function NewNotePage() {
           </div>
         ) : null}
       </div>
-      <input type="hidden" name="id" defaultValue={data.note.id} />
+      <input type="hidden" name="id" defaultValue={id} />
       <div className="text-right">
         <button
           type="submit"
